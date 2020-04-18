@@ -1,12 +1,47 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import { View, StyleSheet, Text, FlatList, Button, TouchableOpacity } from 'react-native';
 
-const AllRecipes = () => {
-  return (
-    <View>
-      <Text style={styles.textStyle}>All Recipes</Text>
-    </View>
-  );
+export const RECIPES_QUERY = gql`
+{
+  allRecipes {
+    _id
+    title
+    time
+    method
+  }
+}`;
+
+export const AllRecipes = (props: any) => {
+  const { navigation } = props;
+  const { loading, data } = useQuery(RECIPES_QUERY);
+
+  if(!loading) {
+    return (
+      <View>
+        <Text style={styles.textStyle}>All Recipes</Text>
+        <FlatList
+          keyExtractor={item => item._id} 
+          data={data.allRecipes}
+          renderItem={({ item }) => {
+            return (
+              <View>
+                <TouchableOpacity onPress={() => navigation.navigate('View', { item, testParam: "TEST PARAM" })}>
+                  <Text>{item.title}</Text>
+                </TouchableOpacity>
+              </View>
+            )
+          }}
+          />
+          <Button 
+            onPress={() => navigation.navigate("New")}
+            title="Add new recipe"
+          />
+      </View>
+    );
+  }
+  else return null;
 }
 
 const styles = StyleSheet.create({

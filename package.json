@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "devtools": "react-devtools"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.4",
@@ -14,6 +15,8 @@
     "@react-navigation/stack": "^5.2.10",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
+    "apollo-link": "^1.2.14",
+    "apollo-link-error": "^1.1.13",
     "apollo-link-http": "^1.5.16",
     "expo": "~37.0.3",
     "graphql": "^15.0.0",
@@ -21,20 +24,21 @@
     "react": "~16.9.0",
     "react-apollo": "^3.1.4",
     "react-dom": "~16.9.0",
+    "react-hook-form": "^5.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "~2.2.0",
-    "react-native-web": "~0.11.7",
     "react-navigation": "^4.3.7",
     "react-navigation-stack": "^2.3.11"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
-    "@types/react": "~16.9.23",
-    "@types/react-native": "~0.61.17",
+    "@types/react": "^16.9.34",
+    "@types/react-native": "^0.62.2",
     "babel-preset-expo": "~8.1.0",
-    "typescript": "~3.8.3"
+    "react-devtools": "^3.6.3",
+    "typescript": "^3.8.3"
   },
   "private": true
 }
