@@ -5,9 +5,10 @@ import { useForm, Controller } from "react-hook-form";
 
 export const RecipeForm = (props: any): any => {
   const { control, handleSubmit, errors } = useForm();
-  const [currentMethod, setCurrentMethod] = useState<string>('');
+  const [currentMethod, setCurrentMethod] = useState<string>("");
+  const [currentIngredient, setCurrentIngredient] = useState<any>({ name: "", quantity: "" });
 
-  const { method, setMethod, onSubmit, title, time } = props;
+  const { method, setMethod, ingredients, setIngredients, onSubmit, title, time } = props;
 
   return (
     <View>
@@ -49,6 +50,29 @@ export const RecipeForm = (props: any): any => {
       <Button title="Add step" onPress={() => {
         setMethod([...method, currentMethod]);
         setCurrentMethod("");
+      }} />
+
+    <Text>Ingredients</Text>
+      <FlatList
+        keyExtractor={(item, index) => `${item}-${index}`}
+        data={ingredients}
+        renderItem={({ item }) => {
+          return(
+            <View>
+              <Text>{item.quantity} - {item.name}</Text>
+            </View>
+          )
+        }}
+      />
+      <Text>Name</Text>
+      <TextInput value={currentIngredient.name} onChange={e => setCurrentIngredient({ ...currentIngredient, name: e.nativeEvent.text })} />
+      
+      <Text>Quantity</Text>
+      <TextInput value={currentIngredient.quantity} onChange={e => setCurrentIngredient({ ...currentIngredient, quantity: e.nativeEvent.text })} />
+      
+      <Button title="Add Ingredient" onPress={() => {
+        setIngredients([...ingredients, currentIngredient]);
+        setCurrentIngredient({ name: "", quantity: "" });
       }} />
 
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />

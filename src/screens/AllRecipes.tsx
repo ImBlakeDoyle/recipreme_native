@@ -10,6 +10,10 @@ export const RECIPES_QUERY = gql`
     title
     time
     method
+    ingredients {
+      name
+      quantity
+    }
   }
 }`;
 

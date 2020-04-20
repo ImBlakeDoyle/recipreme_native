@@ -5,21 +5,31 @@ import { useMutation } from "@apollo/react-hooks";
 import { RECIPES_QUERY } from "../screens/AllRecipes";
 import { RecipeForm } from "../components/RecipeForm";
 
+
+
 const ADD_RECIPE = gql`
 mutation AddRecipe(
   $title: String!,
   $time: String!,
-  $method: [String]!) {
- addRecipe(
-   input: {
-     title: $title,
-     time: $time,
-     method: $method }) 
+  $method: [String]!,
+  $ingredients: [IngredientsInput]!
+  ) {
+  addRecipe(
+    input: {
+      title: $title,
+      time: $time,
+      method: $method,
+      ingredients: $ingredients
+      }) 
  {
    _id
    title
    time
    method
+   ingredients {
+     name
+     quantity
+   }
  }
 }`;
 
@@ -28,7 +38,11 @@ export interface RecipeProps {
  _id?: String;
  title?: String;
  time?: String;
- method?: [String]
+ method?: [String];
+ ingredients?: {
+   name?: String;
+   quantity?: String;
+ }[];
 }
 
 export interface AllRecipes {
@@ -55,15 +69,16 @@ export const NewRecipe = () => {
   });
 
   const [method, setMethod] = useState<any>([]);
+  const [ingredients, setIngredients] = useState<any>([]);
 
   const onSubmit = ({ title, time }: RecipeProps) => {
-    addRecipe({ variables: { title, time, method }})
+    addRecipe({ variables: { title, time, method, ingredients }});
   }
 
   return (
     <View>
       <Text>New Recipe Form</Text>
-      <RecipeForm method={method} setMethod={setMethod} onSubmit={onSubmit} />
+      <RecipeForm method={method} setMethod={setMethod} onSubmit={onSubmit} ingredients={ingredients} setIngredients={setIngredients} />
     </View>
   );
 
